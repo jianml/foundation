@@ -1,5 +1,11 @@
 package cn.jianml.foundation.enums;
 
+/**
+ * 错误码定义
+ *
+ * @author wujian
+ * @date 2022年01月17日
+ */
 public enum ResultCode {
     /**
      * 成功状态码
