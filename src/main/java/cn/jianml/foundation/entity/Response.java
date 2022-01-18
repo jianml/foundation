@@ -1,6 +1,7 @@
 package cn.jianml.foundation.entity;
 
-import cn.jianml.foundation.enums.ResultCode;
+import cn.jianml.foundation.enums.ResultEnum;
+import cn.jianml.foundation.exception.BaseErrorInfo;
 import lombok.Builder;
 import lombok.Data;
 
@@ -21,23 +22,30 @@ public class Response {
 
     public static Response success() {
         return Response.builder()
-                .code(ResultCode.SUCCESS.code())
-                .msg(ResultCode.SUCCESS.message())
+                .code(ResultEnum.SUCCESS.getCode())
+                .msg(ResultEnum.SUCCESS.getMessage())
                 .build();
     }
 
     public static Response success(Object data) {
         return Response.builder()
-                .code(ResultCode.SUCCESS.code())
-                .msg(ResultCode.SUCCESS.message())
+                .code(ResultEnum.SUCCESS.getCode())
+                .msg(ResultEnum.SUCCESS.getMessage())
                 .data(data)
                 .build();
     }
 
-    public static Response error(ResultCode resultCode) {
+    public static Response error(BaseErrorInfo baseErrorInfo) {
         return Response.builder()
-                .code(resultCode.code())
-                .msg(resultCode.message())
+                .code(baseErrorInfo.getCode())
+                .msg(baseErrorInfo.getMessage())
+                .build();
+    }
+
+    public static Response error(Integer errorCode, String errorMsg) {
+        return Response.builder()
+                .code(errorCode)
+                .msg(errorMsg)
                 .build();
     }
 }
