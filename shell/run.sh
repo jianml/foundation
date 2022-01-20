@@ -14,5 +14,6 @@ result=$(docker images ${image} --format {{.Repository}}:{{.Tag}})
 docker run \
 --restart=always \
 --name ${service} \
+-v /docker/${service}/log:/home/app/log
 -p 9000:8080 \
 -d ${image}
