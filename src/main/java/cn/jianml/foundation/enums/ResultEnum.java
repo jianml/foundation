@@ -15,9 +15,14 @@ public enum ResultEnum implements BaseErrorInfo {
     SUCCESS(200, "Operation Success"),
 
     /**
-     * 参数错误
+     * 客户端请求参数错误
      */
-    PARAM_ERROR(1001, "Parameter Error"),
+    PARAM_ERROR(4001, "Client Request Parameter Error"),
+
+    /**
+     * 内部服务错误
+     */
+    INTERNAL_SERVER_ERROR(5001, "Internal Server Error")
     ;
 
     private Integer code;
