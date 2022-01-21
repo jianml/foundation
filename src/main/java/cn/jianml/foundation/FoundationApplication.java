@@ -18,7 +18,7 @@ public class FoundationApplication {
         ConfigurableApplicationContext context = SpringApplication.run(FoundationApplication.class, args);
         Environment environment = context.getBean(Environment.class);
         System.out.println("服务启动成功，端口:" + environment.getProperty("server.port"));
-        System.out.println("enjoy it :)");
+        System.out.println("enjoy it ☕");
         System.out.println("===========================================");
     }
 

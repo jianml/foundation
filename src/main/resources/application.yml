@@ -16,3 +16,6 @@ logging:
   level:
     root: error
     AccessLog: info
+
+swagger:
+  enabled: true  # 是否开启swagger

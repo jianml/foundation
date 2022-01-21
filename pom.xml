@@ -29,11 +29,18 @@
             <version>8.0.22</version>
         </dependency>
 
-        <!--  mysql驱动  -->
+        <!--  mybatis  -->
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
             <version>2.2.0</version>
+        </dependency>
+
+        <!-- swagger -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-boot-starter</artifactId>
+            <version>3.0.0</version>
         </dependency>
 
         <!--  lombok插件  -->
@@ -43,7 +50,6 @@
             <version>1.18.20</version>
             <scope>provided</scope>
         </dependency>
-
     </dependencies>
 
     <build>

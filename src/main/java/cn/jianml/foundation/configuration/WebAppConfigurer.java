@@ -19,6 +19,7 @@ public class WebAppConfigurer implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(accessLogInterceptor);
+        registry.addInterceptor(accessLogInterceptor)
+                .excludePathPatterns("/swagger-ui/**", "/webjars/**", "/doc.html", "/swagger-resources/**", "/v3/**");
     }
 }

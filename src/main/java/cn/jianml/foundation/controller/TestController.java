@@ -1,6 +1,8 @@
 package cn.jianml.foundation.controller;
 
 import cn.jianml.foundation.entity.Response;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 @Validated
 @RestController
 @RequestMapping("test")
+@Api(tags = "测试接口")
 public class TestController {
+    @ApiOperation("GET方法")
     @GetMapping("get")
     public Response get() {
         log.debug("debug test");
@@ -27,6 +31,7 @@ public class TestController {
         return Response.success("Hello World");
     }
 
+    @ApiOperation("POST方法")
     @PostMapping("post")
     public Response post() {
         log.info("Inter post");
