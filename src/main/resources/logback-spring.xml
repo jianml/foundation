@@ -13,7 +13,9 @@
     <property name="log.pattern" value="[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread~${PID}] [%level] [%logger.%line] - %msg%n" />
     <property name="log.access.pattern" value="[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread~${PID}] - %msg%n"/>
     <!-- 日志文件最大限制 -->
-    <property name="log.maxSize" value="2MB" />
+    <property name="log.maxSize" value="5MB" />
+    <!-- 日志保存的总量 -->
+    <property name="log.totalSizeCap" value="1GB" />
     <!--- 编码 -->
     <property name="log.charSet" value="UTF-8" />
 
@@ -40,6 +42,8 @@
             <maxHistory>${log.maxHistory}</maxHistory>
             <!--日志文件最大的大小-->
             <MaxFileSize>${log.maxSize}</MaxFileSize>
+            <!-- 日志保存的总量 -->
+            <totalSizeCap>${log.totalSizeCap}</totalSizeCap>
         </rollingPolicy>
         <encoder>
             <!-- 设置日志输出格式 -->
@@ -60,6 +64,7 @@
             <fileNamePattern>${log.path}/info/info_%d{yyyy-MM-dd}-%i.log</fileNamePattern>
             <maxHistory>${log.maxHistory}</maxHistory>
             <MaxFileSize>${log.maxSize}</MaxFileSize>
+            <totalSizeCap>${log.totalSizeCap}</totalSizeCap>
         </rollingPolicy>
         <encoder>
             <pattern>${log.pattern}</pattern>
@@ -79,6 +84,7 @@
             <fileNamePattern>${log.path}/debug/debug_%d{yyyy-MM-dd}-%i.log</fileNamePattern>
             <maxHistory>${log.maxHistory}</maxHistory>
             <MaxFileSize>${log.maxSize}</MaxFileSize>
+            <totalSizeCap>${log.totalSizeCap}</totalSizeCap>
         </rollingPolicy>
         <encoder>
             <pattern>${log.pattern}</pattern>
@@ -99,6 +105,7 @@
             <fileNamePattern>${log.path}/access/access_%d{yyyy-MM-dd}-%i.log</fileNamePattern>
             <maxHistory>${log.maxHistory}</maxHistory>
             <MaxFileSize>${log.maxSize}</MaxFileSize>
+            <totalSizeCap>${log.totalSizeCap}</totalSizeCap>
         </rollingPolicy>
         <encoder>
             <pattern>${log.access.pattern}</pattern>
@@ -118,5 +125,7 @@
 
     <root level="error">
         <appender-ref ref="ERROR"/>
+        <appender-ref ref="INFO"/>
+        <appender-ref ref="DEBUG"/>
     </root>
 </configuration>
