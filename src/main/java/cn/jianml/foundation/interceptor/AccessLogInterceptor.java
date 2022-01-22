@@ -35,9 +35,7 @@ public class AccessLogInterceptor implements HandlerInterceptor {
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String traceId = TraceIdUtils.getTraceId();
         AccessLogFormatter accessLogFormatter = AccessLogFormatter.builder()
-                .traceId(traceId)
                 .direction(DirectionEnum.IN)
                 .ip(IPUtils.getRemoteHost(request))
                 .method(request.getMethod())
@@ -45,7 +43,6 @@ public class AccessLogInterceptor implements HandlerInterceptor {
                 .build();
         log.info(accessLogFormatter.getLog());
         request.setAttribute(START_TIME, System.currentTimeMillis());
-        request.setAttribute(TRACE_ID, traceId);
         return true;
     }
 
@@ -57,7 +54,6 @@ public class AccessLogInterceptor implements HandlerInterceptor {
         long startTime = (long) request.getAttribute(START_TIME);
         long cost = System.currentTimeMillis() - startTime;
         AccessLogFormatter accessLogFormatter = AccessLogFormatter.builder()
-                .traceId((String) request.getAttribute(TRACE_ID))
                 .direction(DirectionEnum.OUT)
                 .ip(IPUtils.getRemoteHost(request))
                 .method(request.getMethod())

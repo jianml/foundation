@@ -10,8 +10,8 @@
     <!-- 日志最大的历史 30天 -->
     <property name="log.maxHistory" value="30" />
     <!-- 日志输出格式 -->
-    <property name="log.pattern" value="[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread~${PID}] [%level] [%logger.%line] - %msg%n" />
-    <property name="log.access.pattern" value="[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread~${PID}] - %msg%n"/>
+    <property name="log.pattern" value="[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%level] [%thread~${PID}] [%X{TRACE-ID}] [%logger.%line] - %msg%n" />
+    <property name="log.access.pattern" value="[%d{yyyy-MM-dd HH:mm:ss.SSS}] [%thread~${PID}] [%X{TRACE-ID}] - %msg%n"/>
     <!-- 日志文件最大限制 -->
     <property name="log.maxSize" value="5MB" />
     <!-- 日志保存的总量 -->

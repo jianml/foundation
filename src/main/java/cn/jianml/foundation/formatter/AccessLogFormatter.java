@@ -14,11 +14,6 @@ import lombok.Data;
 @Builder
 public class AccessLogFormatter {
     /**
-     * 请求追踪ID
-     */
-    private String traceId;
-
-    /**
      * IP
      */
     private String ip;
@@ -48,7 +43,6 @@ public class AccessLogFormatter {
      */
     public String getLog() {
         StringBuilder sb = new StringBuilder()
-                .append("traceId:").append(this.traceId).append(" | ")
                 .append("direction:").append(this.direction.name()).append(" | ")
                 .append("ip:").append(this.ip).append(" | ")
                 .append("method:").append(this.method).append(" | ")
