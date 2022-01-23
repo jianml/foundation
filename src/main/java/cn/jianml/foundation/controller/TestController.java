@@ -1,5 +1,6 @@
 package cn.jianml.foundation.controller;
 
+import cn.jianml.foundation.util.JSchUtils;
 import cn.jianml.foundation.vo.Response;
 import cn.jianml.foundation.vo.DemoVO;
 import io.swagger.annotations.Api;
@@ -56,5 +57,11 @@ public class TestController {
     @PostMapping(value = "validate/form", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public Response validate2(@Valid DemoVO demoVO) {
         return Response.success();
+    }
+
+    @ApiOperation("JSCH")
+    @PostMapping("jsch")
+    public Response jsch(String host, int port, String username, String password, String command) {
+        return Response.success(JSchUtils.executeCommand(host, port, username, password, command));
     }
 }

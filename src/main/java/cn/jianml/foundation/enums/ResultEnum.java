@@ -22,7 +22,12 @@ public enum ResultEnum implements BaseErrorInfo {
     /**
      * 内部服务错误
      */
-    INTERNAL_SERVER_ERROR(5001, "Internal Server Error")
+    INTERNAL_SERVER_ERROR(5001, "Internal Server Error"),
+
+    /**
+     * JSch错误
+     */
+    JSCH_ERROR(6001, "JSch Error"),
     ;
 
     private Integer code;
