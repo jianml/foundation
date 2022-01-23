@@ -1,6 +1,6 @@
 package cn.jianml.foundation.handler;
 
-import cn.jianml.foundation.entity.Response;
+import cn.jianml.foundation.vo.Response;
 import cn.jianml.foundation.enums.ResultEnum;
 import cn.jianml.foundation.exception.BizException;
 import org.springframework.http.HttpStatus;
@@ -14,11 +14,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
-import javax.validation.Path;
 import java.util.List;
 import java.util.Set;
 import java.util.StringJoiner;
-import java.util.stream.Collectors;
 
 /**
  * 全局异常处理器

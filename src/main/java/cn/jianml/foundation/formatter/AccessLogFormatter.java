@@ -14,9 +14,19 @@ import lombok.Data;
 @Builder
 public class AccessLogFormatter {
     /**
+     * 方向：IN / OUT
+     */
+    private DirectionEnum direction;
+
+    /**
      * IP
      */
     private String ip;
+
+    /**
+     * 请求方式
+     */
+    private String method;
 
     /**
      * 请求资源地址
@@ -24,14 +34,19 @@ public class AccessLogFormatter {
     private String url;
 
     /**
-     * 方向：IN / OUT
+     * HTTP响应码
      */
-    private DirectionEnum direction;
+    private int httpStatus;
 
     /**
-     * 请求方式
+     * 系统响应码
      */
-    private String method;
+    private String responseCode;
+
+    /**
+     * 系统响应描述
+     */
+    private String responseDesc;
 
     /**
      * 耗时
@@ -48,7 +63,14 @@ public class AccessLogFormatter {
                 .append("method:").append(this.method).append(" | ")
                 .append("url:").append(this.url);
         if (DirectionEnum.OUT == this.direction) {
-            sb.append(" | ").append("cost:").append(this.cost);
+            sb.append(" | ").append("httpCode:").append(this.httpStatus).append(" | ");
+            if (this.responseCode != null) {
+                sb.append("responseCode:").append(this.responseCode).append(" | ");
+            }
+            if (this.responseDesc != null) {
+                sb.append("responseDesc:").append(this.responseDesc).append(" | ");
+            }
+            sb.append("cost:").append(this.cost);
         }
 
         return sb.toString();

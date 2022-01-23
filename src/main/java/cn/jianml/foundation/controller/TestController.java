@@ -1,6 +1,6 @@
 package cn.jianml.foundation.controller;
 
-import cn.jianml.foundation.entity.Response;
+import cn.jianml.foundation.vo.Response;
 import cn.jianml.foundation.vo.DemoVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -11,7 +11,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 
 /**
  * 测试Controller

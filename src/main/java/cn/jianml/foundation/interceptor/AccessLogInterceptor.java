@@ -1,15 +1,16 @@
 package cn.jianml.foundation.interceptor;
 
+import cn.jianml.foundation.constant.SystemConstants;
 import cn.jianml.foundation.enums.DirectionEnum;
 import cn.jianml.foundation.formatter.AccessLogFormatter;
 import cn.jianml.foundation.util.IPUtils;
-import cn.jianml.foundation.util.TraceIdUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Collection;
 
 /**
  * HTTP请求日志拦截器
@@ -24,11 +25,6 @@ public class AccessLogInterceptor implements HandlerInterceptor {
      * 业务开始时间
      */
     private static final String START_TIME = "StartTime";
-
-    /**
-     * 请求追踪ID
-     */
-    private static final String TRACE_ID = "TraceId";
 
     /**
      * 控制器方法处理之前
@@ -53,13 +49,20 @@ public class AccessLogInterceptor implements HandlerInterceptor {
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         long startTime = (long) request.getAttribute(START_TIME);
         long cost = System.currentTimeMillis() - startTime;
-        AccessLogFormatter accessLogFormatter = AccessLogFormatter.builder()
+        AccessLogFormatter.AccessLogFormatterBuilder accessLogFormatterBuilder = AccessLogFormatter.builder()
                 .direction(DirectionEnum.OUT)
                 .ip(IPUtils.getRemoteHost(request))
                 .method(request.getMethod())
                 .url(request.getRequestURL().toString())
-                .cost(cost + "ms")
-                .build();
+                .httpStatus(response.getStatus());
+        Collection<String> headerNames = response.getHeaderNames();
+        if (headerNames.contains(SystemConstants.RESPONSE_CODE)) {
+            accessLogFormatterBuilder.responseCode(response.getHeader(SystemConstants.RESPONSE_CODE));
+        }
+        if (headerNames.contains(SystemConstants.RESPONSE_DESC)) {
+            accessLogFormatterBuilder.responseDesc(response.getHeader(SystemConstants.RESPONSE_DESC));
+        }
+        AccessLogFormatter accessLogFormatter = accessLogFormatterBuilder.cost(cost + "ms").build();
         log.info(accessLogFormatter.getLog());
     }
 }

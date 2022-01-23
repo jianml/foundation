@@ -2,6 +2,8 @@ server:
   port: 8080
 
 spring:
+  application:
+    name: Foundation
   datasource:
     url: jdbc:mysql://localhost:3306/foundationdb?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
     username: root

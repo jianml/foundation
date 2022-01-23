@@ -1,4 +1,4 @@
-package cn.jianml.foundation.entity;
+package cn.jianml.foundation.vo;
 
 import cn.jianml.foundation.enums.ResultEnum;
 import cn.jianml.foundation.exception.BaseErrorInfo;
