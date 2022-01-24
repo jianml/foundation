@@ -1,5 +1,6 @@
 package cn.jianml.foundation.controller;
 
+import cn.jianml.foundation.service.RedisService;
 import cn.jianml.foundation.util.JSchUtils;
 import cn.jianml.foundation.vo.Response;
 import cn.jianml.foundation.vo.DemoVO;
@@ -7,6 +8,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +27,9 @@ import javax.validation.Valid;
 @RequestMapping("test")
 @Api(tags = "测试接口")
 public class TestController {
+    @Autowired
+    private RedisService redisService;
+
     @ApiOperation("GET方法")
     @GetMapping("get")
     public Response get() {
@@ -63,5 +68,18 @@ public class TestController {
     @PostMapping("jsch")
     public Response jsch(String host, int port, String username, String password, String command) {
         return Response.success(JSchUtils.executeCommand(host, port, username, password, command));
+    }
+
+    @ApiOperation("redis")
+    @PostMapping("redis")
+    public Response redis(String key, String value) {
+        redisService.set(key, value);
+        return Response.success();
+    }
+
+    @ApiOperation("redis")
+    @GetMapping("redis")
+    public Response redis1(String key) {
+        return Response.success(redisService.get(key));
     }
 }
