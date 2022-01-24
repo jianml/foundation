@@ -3,6 +3,7 @@ package cn.jianml.foundation.handler;
 import cn.jianml.foundation.vo.Response;
 import cn.jianml.foundation.enums.ResultEnum;
 import cn.jianml.foundation.exception.BizException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
@@ -24,11 +25,13 @@ import java.util.StringJoiner;
  * @author wujian
  * @date 2022年01月18日
  */
+@Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Response exception(Exception e) {
+        log.error("Exception handle: ", e);
         return Response.error(ResultEnum.INTERNAL_SERVER_ERROR.getCode(), e.getMessage());
     }
 
@@ -38,6 +41,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(BizException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Response bizExceptionHandler(BizException e) {
+        log.error("BizException handle: ", e);
         return Response.error(e.getErrorCode(), e.getErrorMsg());
     }
 
@@ -47,6 +51,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(BindException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Response bindExceptionHandler(BindException e) {
+        log.error("BindException handle: ", e);
         List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
         StringJoiner stringJoiner = new StringJoiner(", ");
         for (FieldError fieldError : fieldErrors) {
@@ -63,6 +68,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Response methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e) {
+        log.error("MethodArgumentNotValidException handle: ", e);
         List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
         StringJoiner stringJoiner = new StringJoiner(", ");
         for (FieldError fieldError : fieldErrors) {
@@ -79,6 +85,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Response constraintViolationExceptionHandler(ConstraintViolationException e) {
+        log.error("ConstraintViolationException handle: ", e);
         Set<ConstraintViolation<?>> constraintViolations = e.getConstraintViolations();
         StringBuilder sb = new StringBuilder();
         StringJoiner stringJoiner = new StringJoiner(", ");
@@ -96,6 +103,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MissingServletRequestParameterException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Response missingServletRequestParameterExceptionHandler(MissingServletRequestParameterException e) {
+        log.error("MissingServletRequestParameterException handle: ", e);
         return Response.error(ResultEnum.PARAM_ERROR.getCode(), "缺少参数：" + e.getParameterName());
     }
 }
